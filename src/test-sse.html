@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Test SSE</title>
+</head>
+<script src="https://cdn.tailwindcss.com"></script>
+<body>
+<div class="w-full h-[100vh] flex flex-col justify-center items-center rounded-md">
+    <div id="button-container" class="w-[500px] p-4 flex justify-between border border-2 border-black rounded-md">
+        <button id="est-conn"
+                class="border-2 border-black pl-2 pr-1 pt-2 pb-2 rounded-md hover:bg-green-500 cursor-pointer"
+        >
+            Reestablish Connection
+        </button>
+    </div>
+    <div class="h-[20px]">
+    </div>
+    <div id="sse-status-container" class="w-[500px] p-2 flex justify-between border border-2 border-black rounded-md">
+        <div>
+            SSE Status
+        </div>
+        <div id="sse-status">
+
+        </div>
+    </div>
+    <div class="h-[40px]">
+    </div>
+</div>
+</body>
+
+
+<script>
+    const buttonContainer = document.querySelector("#button-container")
+    buttonContainer.classList.toggle('hidden')
+
+
+
+    function convertSnakeCase(n) {
+        return n.split("_").map(p => p.toUpperCase()).join(" ")
+    }
+
+    const eventSource = new EventSource('http://localhost:3001/sse');
+    console.log(eventSource);
+
+
+    eventSource.onmessage = function(event) {
+        const sseHeader = document.querySelector("#sse-status")
+        const sseHeaderContainer = document.querySelector("#sse-status-container")
+        sseHeader.innerText = "SSE Connection Established"
+        sseHeaderContainer.classList.remove('text-red-500')
+        sseHeaderContainer.classList.add('text-green-500')
+        try {
+            console.log(event.data);
+        } catch (e) {
+            console.log(e)
+            console.error("failed to parse json data")
+            eventSource.close()
+        }
+    };
+
+
+    eventSource.onerror = function (event) {
+        console.log(event)
+    };
+</script>
+</html>

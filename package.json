@@ -1,0 +1,21 @@
+{
+  "name": "stress_elysia_postgres",
+  "module": "src/index.ts",
+  "type": "module",
+  "devDependencies": {
+    "@types/bun": "latest"
+  },
+  "peerDependencies": {
+    "typescript": "^5.0.0"
+  },
+  "dependencies": {
+    "@elysiajs/cors": "^0.8.0",
+    "@elysiajs/stream": "^0.8.0",
+    "@elysiajs/swagger": "^0.8.1",
+    "@types/slonik": "^22.1.11",
+    "elysia": "^0.8.8",
+    "jsonwebtoken": "^9.0.2",
+    "pg-listen": "^1.7.0",
+    "slonik": "^37.2.0"
+  }
+}

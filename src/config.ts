@@ -1,0 +1,1 @@
+export const dbUrl = "postgres://postgres:postgres@localhost:5432/doc_database";
